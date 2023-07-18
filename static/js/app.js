@@ -31,7 +31,7 @@ function init() {
 }
 
 // Make the demographics panel
-function demo(selectedSubject) {
+function demo(selectedValue) {
     // Fetch the JSON data and console log it
     d3.json(url).then((data) => {
         console.log(`Data: ${data}`);
@@ -40,7 +40,7 @@ function demo(selectedSubject) {
         let metadata = data.metadata;
         
         // Filter data where id = selected subject
-        let filteredData = metadata.filter((meta) => meta.id == selectedSubject);
+        let filteredData = metadata.filter((meta) => meta.id == selectedValue);
       
         // Assign the first object to obj variable
         let obj = filteredData[0]
@@ -65,7 +65,7 @@ function demo(selectedSubject) {
   
 
 // Make the bar chart
-function bar(selectedSubject) {
+function bar(selectedValue) {
     // Fetch the JSON data and console log it
     d3.json(url).then((data) => {
         console.log(`Data: ${data}`);
@@ -74,7 +74,7 @@ function bar(selectedSubject) {
         let samples = data.samples;
 
         // Filter data where id = selected value 
-        let filteredData = samples.filter((sample) => sample.id === selectedSubject);
+        let filteredData = samples.filter((sample) => sample.id === selectedValue);
 
         // Assign the first object to obj variable
         let obj = filteredData[0];
@@ -87,7 +87,7 @@ function bar(selectedSubject) {
             text: obj.otu_labels.slice(0,10).reverse(),
             type: "bar",
             marker: {
-                color: "rgb(0,0,255)"
+                color: "rgb(0,100,165)"
             },
             orientation: "h"
         }];
@@ -98,7 +98,7 @@ function bar(selectedSubject) {
 }
   
 // Make the bubble chart
-function bubble(selectedSubject) {
+function bubble(selectedValue) {
     // Fetch the JSON data and console log it
     d3.json(url).then((data) => {
 
@@ -106,7 +106,7 @@ function bubble(selectedSubject) {
         let samples = data.samples;
     
         // Filter data where id = selected value 
-        let filteredData = samples.filter((sample) => sample.id === selectedSubject);
+        let filteredData = samples.filter((sample) => sample.id === selectedValue);
     
         // Assign the first object to obj variable
         let obj = filteredData[0];
@@ -120,6 +120,7 @@ function bubble(selectedSubject) {
             marker: {
                 size: obj.sample_values,
                 color: obj.otu_ids,
+                colorscale: "Earth"
             }
         }];
     
@@ -139,7 +140,6 @@ function optionChanged(selectedValue) {
     demo(selectedValue);
     bar(selectedValue);
     bubble(selectedValue);
-    gauge(selectedValue)
 }
 
 init();
