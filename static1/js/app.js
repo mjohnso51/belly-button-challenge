@@ -65,7 +65,7 @@ function demo(selectedSubject) {
   
 
 // Make the bar chart
-function bar(selectedValue) {
+function bar(selectedSubject) {
     // Fetch the JSON data and console log it
     d3.json(url).then((data) => {
         console.log(`Data: ${data}`);
@@ -74,7 +74,7 @@ function bar(selectedValue) {
         let samples = data.samples;
 
         // Filter data where id = selected value 
-        let filteredData = samples.filter((sample) => sample.id === selectedValue);
+        let filteredData = samples.filter((sample) => sample.id === selectedSubject);
 
         // Assign the first object to obj variable
         let obj = filteredData[0];
@@ -98,7 +98,7 @@ function bar(selectedValue) {
 }
   
 // Make the bubble chart
-function bubble(selectedValue) {
+function bubble(selectedSubject) {
     // Fetch the JSON data and console log it
     d3.json(url).then((data) => {
 
@@ -106,7 +106,7 @@ function bubble(selectedValue) {
         let samples = data.samples;
     
         // Filter data where id = selected value 
-        let filteredData = samples.filter((sample) => sample.id === selectedValue);
+        let filteredData = samples.filter((sample) => sample.id === selectedSubject);
     
         // Assign the first object to obj variable
         let obj = filteredData[0];
@@ -120,22 +120,21 @@ function bubble(selectedValue) {
             marker: {
                 size: obj.sample_values,
                 color: obj.otu_ids,
-                colorscale: "Sunset"
             }
         }];
     
-        // Apply the x-axis lengend to the layout
+        // Apply x-axis lengend to the layout
         let layout = {
             xaxis: {title: "OTU ID"}
         };
     
-        // Use Plotly to plot the data in a bubble chart
+        // Use Plotly to add data to a bubble chart
         Plotly.newPlot("bubble", trace, layout);
     });
 }
 
 
-// Toggle to new plots when option changed
+// Change to new plots when option changed
 function optionChanged(selectedValue) {
     demo(selectedValue);
     bar(selectedValue);
